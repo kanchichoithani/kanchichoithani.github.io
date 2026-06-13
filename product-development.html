@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Development — lostinaloop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink:#111; --mid:#888; --light:#bbb; --off:#f4f3f0; --white:#fafaf8; --border:#e8e7e4; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Syne", sans-serif; background: var(--white); color: var(--ink); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem; background: var(--white); border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 3.5rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 0.78rem; color: var(--mid); text-decoration: none;
+      font-weight: 500; transition: color 0.2s; margin-bottom: 0.8rem; display: inline-block;
+    }
+    .back-link:hover { color: var(--ink); }
+    .page-eyebrow { font-size: 0.89rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light); margin-bottom: 0.6rem; display: block; }
+    .page-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+
+    /* PROJECT ENTRY — left text, right photos */
+    .project-entry {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .project-entry:last-child { border-bottom: none; }
+
+    .project-text {
+      padding: 4rem 3rem;
+      position: sticky;
+      top: 5rem;
+    }
+    .project-num {
+      font-size: 1.05rem; color: var(--light);
+      font-family: "Syne Mono", monospace;
+      display: block; margin-bottom: 0.6rem;
+    }
+    .project-title {
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.15; color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+    .project-desc p {
+      font-size: 0.9rem; line-height: 1.8; color: var(--mid);
+      margin-bottom: 0.8rem;
+    }
+    .project-desc p:last-child { margin-bottom: 0; }
+    .project-desc a { color: var(--mid); text-underline-offset: 3px; }
+    .project-desc a:hover { color: var(--ink); }
+    .project-year {
+      font-size: 0.85rem; font-family: "Syne Mono", monospace;
+      color: var(--light); margin-top: 1.2rem; display: block;
+    }
+
+    /* PHOTOS — stacked vertically on the right */
+    .project-photos {
+      padding: 4rem 3rem 4rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .project-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--off);
+      overflow: hidden;
+      position: relative;
+    }
+    .project-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-photo:hover img { transform: scale(1.03); }
+
+    /* HOVER OVERLAY */
+    .photo-hover-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: flex-end; justify-content: flex-start;
+      padding: 1rem 1.2rem;
+      background: rgba(0,0,0,0.3);
+      opacity: 0; transition: opacity 0.3s ease;
+      font-family: 'Syne', sans-serif; font-size: 0.85rem;
+      font-weight: 600; color: #fafaf8;
+      letter-spacing: 0.08em; text-align: center; padding: 1.5rem;
+    }
+    .project-photo:hover .photo-hover-overlay { opacity: 1; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.4rem 3rem;
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--light);
+    }
+    footer a { color: var(--light); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media(max-width:900px){
+      nav { padding: 1.1rem 1.5rem; }
+      .page-header { padding: 2.5rem 1.5rem; }
+      .project-entry { grid-template-columns: 1fr; }
+      .project-text { padding: 3rem 1.5rem 1.5rem; position: static; }
+      .project-photos { padding: 0 1.5rem 3rem; }
+    }
+    @media(max-width:580px){ .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="lostinaloop.html" class="logo">lostinaloop</a>
+  <ul class="nav-links">
+    <li><a href="lostinaloop.html#about">About</a></li>
+    <li><a href="lostinaloop.html#work">Portfolio / Work</a></li>
+    <li><a href="lostinaloop.html#shop">Shop</a></li>
+    <li><a href="lostinaloop.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <a class="back-link" href="lostinaloop.html#work">← Back to work</a>
+  <span class="page-eyebrow">Portfolio / Work — 02</span>
+  <h1 class="page-title">Product Development</h1>
+</div>
+
+<!-- PROJECT 01 -->
+<div class="project-entry">
+  <div class="project-text">
+    <span class="project-num">01</span>
+    <h2 class="project-title">Copper Enamelling</h2>
+    <div class="project-desc">
+      <p></p>Designed and developed copper enamel wallplates and tealights for Ekibeki, as a part of their home decor collection.</p>
+    </div>
+    <span class="project-year">2021 - 2022</span>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"><img src="Wallplates-09.png" alt="Copper Enamelling"></div>
+    <div class="project-photo"><img src="Wallplate.png" alt="Copper Enamelling"></div>
+    <div class="project-photo"><img src="Wallplates-12.png" alt="Copper Enamelling"></div>
+  </div>
+</div>
+
+<!-- PROJECT 02 -->
+<div class="project-entry">
+  <div class="project-text">
+    <span class="project-num">02</span>
+    <h2 class="project-title">Golden Grass</h2>
+    <div class="project-desc">
+      <p></p>Chief Designer for the Golden Grass Project in Kendrapara, Odisha, leading on-ground design and product development 
+      for Ekibeki. <a href="https://instagram.com/Ekibeki_india" target="_blank">@ekibeki_india</a><br>
+      <br>Working closely with master artisans, the project explored new product opportunities while building local capacity. Master artisans were trained to mentor groups of 30 women artisans over a four-month period, creating a sustainable knowledge-sharing model. <br> <br> Together, we developed a collection of jewellery, christmas hangings, and torans that combined traditional golden grass craftsmanship with contemporary design.</p>
+    </div>
+    <span class="project-year">JANUARY - APRIL 2022</span>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo">
+      <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="GG 01.mp4" type="video/mp4">
+      </video>
+      <div class="photo-hover-overlay">Making with Golden Grass, locally known as Kaincha, Odisha 2022</div>
+    </div>
+    <div class="project-photo">
+      <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="GG.mp4" type="video/mp4">
+      </video>
+      <div class="photo-hover-overlay">Proto Samples</div>
+  </div>
+</div>
+</div><div>
+
+<!-- PROJECT 03 -->
+<div class="project-entry">
+  <div class="project-text">
+    <span class="project-num">03</span>
+    <h2 class="project-title">Alpviram, <br>Play and Learn</h2>
+    <div class="project-desc">
+      <p></p>Throughout human history, music has existed in both formal and informal forms as an expression of harmony, rhythm, and sound.<br> <br>
+This project explores the idea of a playful sound-making object that is free from the cultural expectations often associated with musical instruments. Designed as a tool for creative engagement, its purpose is to encourage exploration, play, and stress relief through interaction and sound.</p>
+    </div>
+    <span class="project-year">2019</span>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"><img src="Alpviram-10.png" alt="Project 03"></div>
+    <div class="project-photo"><img src="Alpviram-13.png" alt="Project 03"></div>
+    
+  </div>
+</div>
+
+<!-- PROJECT 04 -->
+<div class="project-entry">
+  <div class="project-text">
+    <span class="project-num">04</span>
+    <h2 class="project-title">Amplus</h2>
+    <div class="project-desc">
+      <p></p>Am+ (Amplus) is a stackable stool designed for everyday use. Featuring a spacious and comfortable seat, it was inspired by the impromptu visits from relatives and neighbours that often become hours of conversation.<br>
+<br>The stool is lightweight, easy to stack, and simple to store when not in use. Developed over four weeks in 2019, this project was my first introduction to furniture design.</p>
+    </div>
+    <span class="project-year">2019</span>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"><img src="Amplus-14.png" alt="Project 04"></div>
+    <div class="project-photo"><img src="Amplus-15.png" alt="Project 04"></div>
+    <div class="project-photo"><img src="amplus.gif" alt="Project 04"></div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
+  <span>New Delhi, India</span>
+</footer>
+<script>
+  const sticker = document.createElement('img');
+  sticker.src = 'Lostinaloop.png';
+  sticker.style.cssText = `
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 80px; height: 80px; object-fit: contain;
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity 0.3s ease;
+  `;
+  document.body.appendChild(sticker);
+
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+  let visible = false;
+  let hideTimer;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!visible) { sticker.style.opacity = '1'; visible = true; }
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => { sticker.style.opacity = '0'; visible = false; }, 1000);
+  });
+
+  function animate() {
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+    sticker.style.left = currentX + 'px';
+    sticker.style.top = currentY + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body>
+</html>

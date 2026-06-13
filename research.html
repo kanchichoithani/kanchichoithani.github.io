@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research & Documentation — lostinaloop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --ink:#111; --mid:#888; --light:#bbb; --off:#f4f3f0; --white:#fafaf8; --border:#e8e7e4; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Syne", sans-serif; background: var(--white); color: var(--ink); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem; background: var(--white); border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 3.5rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .back-link {
+      font-size: 0.78rem; color: var(--mid); text-decoration: none;
+      font-weight: 500; transition: color 0.2s; margin-bottom: 0.8rem; display: inline-block;
+    }
+    .back-link:hover { color: var(--ink); }
+    .page-eyebrow { font-size: 0.89rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--light); }
+    .page-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+
+    /* PROJECT ENTRY */
+    .project-entry {
+      padding: 4rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-entry:last-child { border-bottom: none; }
+
+    .project-meta {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .project-num {
+      font-size: 1.05rem; color: var(--light);
+      font-family: "Syne Mono", monospace; flex-shrink: 0;
+    }
+    .project-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink);
+    }
+
+    /* PHOTO ROW — 3 slots side by side */
+    .project-photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    .project-photo {
+      aspect-ratio: 4/3;
+      background: var(--off);
+      overflow: hidden;
+    }
+    .project-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-photo:hover img { transform: scale(1.03); }
+
+    /* for fewer than 3 photos, collapse empty slots */
+    .project-photos.photos-1 { grid-template-columns: 2fr 1fr 1fr; }
+    .project-photos.photos-2 { grid-template-columns: 1fr 1fr; }
+
+    /* DESCRIPTION */
+    .project-desc {
+      max-width:
+    }
+    .project-desc p {
+      font-size: 0.9rem; line-height: 1.8; color: var(--mid);
+      margin-bottom: 0.8rem;
+    }
+    .project-desc p:last-child { margin-bottom: 0; }
+    .project-year {
+      font-size: 0.7rem; font-family: "Syne Mono", monospace;
+      color: var(--light); margin-top: 1rem; display: block;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.4rem 3rem;
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--light);
+    }
+    footer a { color: var(--light); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media(max-width:900px){
+      nav { padding: 1.1rem 1.5rem; }
+      .page-header { padding: 2.5rem 1.5rem; }
+      .project-entry { padding: 3rem 1.5rem; }
+      .project-photos { grid-template-columns: repeat(2,1fr); }
+      .project-photos.photos-1 { grid-template-columns: 1fr; }
+    }
+    @media(max-width:580px){
+      .nav-links { display: none; }
+      .project-photos { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="lostinaloop.html" class="logo">lostinaloop</a>
+  <ul class="nav-links">
+    <li><a href="lostinaloop.html#about">About</a></li>
+    <li><a href="lostinaloop.html#work">Portfolio / Work</a></li>
+    <li><a href="lostinaloop.html#shop">Shop</a></li>
+    <li><a href="lostinaloop.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <a class="back-link" href="lostinaloop.html#work">← Back to work</a>
+  <span class="page-eyebrow">Portfolio / Work — 01</span>
+  <h1 class="page-title">Research & Documentation</h1>
+</div>
+
+<!-- PROJECT 01 -->
+<div class="project-entry">
+  <div class="project-meta">
+    <span class="project-num">01</span>
+    <h2 class="project-title">The Brokpa Collective <br> 
+      <span class="project page-eyebrow">Arunachal Pradesh <space> </space>(January - May 2024) </span>
+  </div>
+  <div class="project-photos">
+    <!-- Add up to 3 photos. Replace the divs with <img src="your-photo.jpg" alt="..."> inside each .project-photo -->
+    <div class="project-photo"><img src="Resizing.png" alt="..."></div>
+    <div class="project-photo"><img src="WhatsApp Image 2026-06-08 at 17.02.04 (4).jpeg" alt="..."></div>
+    <div class="project-photo"><img src="Resizing-03.png" alt="..."></div>
+  </div>
+  <div class="project-desc">
+  <p></p> Led the documentation and diversification of yak hair craft and traditional wet felting practices among the Brokpa community of Arunachal Pradesh, as a design consultant for Its All Folk. <br> The project formed part of the UK-funded Darwin Initiative Biodiversity programme, Reviving Trans-Himalayan Rangelands: A Community-Led Vision for People and Nature, implemented in partnership with WWF India.
+My work focused on documenting traditional knowledge systems, material culture, and craft processes connected to yak herding livelihoods. 
+</p>
+    <span class="project page-eyebrow">An excerpt from the documentation: <br> </span> 
+
+<p></p> “In the western region of Arunachal Pradesh, bordered by Bhutan and China (Tibet), lies a high sierra inhabited by the Brokpas, a semi-nomadic community whose livelihood revolves around yak herding. The yaks, essential to their existence, provide wool, milk, and meat, and are central to their culture and economy. The Brokpas migrate seasonally with their herds, ascending to higher altitudes in summer and descending in winter, ensuring the well-being of both herds and humans. 
+
+Concentrated in the West Kameng and Tawang districts, they sustain themselves and neighboring communities like the Monpas with dairy products. <br> <br> Tsering Dondup, a Brokpa from Mago, values his yaks deeply and finds it difficult to part with them despite his advancing age.
+Yak herding also involves practical challenges, such as trimming yak hair during the monsoon season. Nima Norbu and Phurpa Chhojom, a married Brokpa couple, spend most of their year migrating with their herd, making cheese (chura) and gathering timber and yak dung. The Brokpas’ relationship with the yak reflects ethical stewardship, consuming yak meat only upon the
+animal’s natural death and using traditional remedies like Chanduk to care for their yaks in times of illness. This deep connection with their environment ensures the health and sustainability of their herds.”
+</p>
+  </div>
+</div>
+
+<!-- PROJECT 02 -->
+<div class="project-entry">
+  <div class="project-meta">
+    <span class="project-num">02</span>
+    <h2 class="project-title">Mapping: Teracotta Cluster of Warak <br>
+      <span class="project page-eyebrow">Maharshtra <space> </space>(February - June 2021) </span>
+    </h2>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"><img src="IMG_6700.JPG" alt="..."></div>
+    <div class="project-photo"><img src="Image1.JPG" alt="..."></div>
+    <div class="project-photo"><img src="IMG_7223.JPG" alt="..."></div>
+  </div>
+  <div class="project-desc">
+    <p></p>For my graduation thesis project, I worked under the guidance of Ms. Meera Goradia, Co-founder of Creative Dignity for the luxury label, Ikai Asai. The project involved mapping the teracotta craft cluster of Warak, then on the verge of extinction. Through a 12-week period of immersive field research, I documented the socio-cultural, economic, and technical dimensions of the craft ecosystem, resulting in a detailed research document that explored the relationship between craft, community, and contemporary relevance.</p>
+    <span class="project page-eyebrow">An excerpt from the documentation: <br> </span> 
+      <p></p> “Malti Majema Warekar lives with her husband in Warak. She had two children, but they passed away when young. Even back in her childhood, she belonged to an economically
+challenged background. She spent most of her youth supporting her crippled mother and sisters in Nizamabad by stitching clothes on a sewing machine. Her conditions weren’t favorable to get educated, so she remains illiterate. However, she still wishes to be educated. <br>
+<br> She learned the craft of matki making from her home back in the Kumbharawada of Mangaon.She was never really fond of the craft but took over this skill from the environment around her in Mangaon, which today helps her win bread for her family. This is their only source of income. Earlier, her husband would work as a brick maker but now because of his old age, he is unable to do so. He helps her around by doing small tasks such as procuring the raw material, firing, etc. Other than the matkis, she also makes single chuls, clay utensils, and small toys. She is a regular at the weekly bazaar and sits on the same spot, every Friday. In addition to selling her matkas in the bazaar, she occasionally receives orders from people in nearby villages like Indapur and Kolad.”
+</p>
+  
+  </div>
+</div>
+
+<!-- PROJECT 03 -->
+<div class="project-entry">
+  <div class="project-meta">
+    <span class="project-num">03</span>
+    <h2 class="project-title">Emotional Aid <br>
+    <span class="project page-eyebrow">A Self-Help Kit <space> </space>(July 2020) </span>
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"><img src="Screenshot 2026-06-08 at 19.29.16.png" alt="..."></div>
+    <div class="project-photo"><img src="Screenshot 2026-06-08 at 19.29.37.png" alt="..."></div>
+    <div class="project-photo"><img src="Screenshot 2026-06-08 at 19.24.45.png" alt="..."></div>
+  </div>
+  <div class="project-desc">
+    <p></p> A research-led project exploring how design can support individuals navigating grief and loss. The project involved developing an emotional self-help kit intended to help the bereaved cope with the emotional uncertainty and instability that often accompany the grieving process.<br>
+<br> The research journey was both challenging and deeply personal, involving conversations around lived experiences of grief alongside consultations with mental health professionals. Through this process, the project sought to understand the emotional needs of those experiencing loss and translate these insights into a supportive and accessible design intervention.</p>
+  </div>
+</div>
+
+<!-- PROJECT 04 -->
+<div class="project-entry">
+  <div class="project-meta">
+    <span class="project-num">04</span>
+    <h2 class="project-title">Hatwara Bazaar <br>
+    <span class="project page-eyebrow">Jaipur <space></space>(2019-2020) </span>
+  </div>
+   <div class="project-photos">
+    <div class="project-photo"><img src="IMG_9334-2.jpg" alt="..."></div>
+    <div class="project-photo"><img src="IMG_7018-2.jpg" alt="..."></div>
+    <div class="project-photo"><img src="IMG_7028-2.jpg" alt="..."></div>
+  </div>
+  <div class="project-desc">
+    <p></p> A long-term visual documentation of Hatwara Bazaar, a temporary Saturday market in Jaipur, Rajasthan where the city's discarded objects find new life.
+Spread across toys, electronics, photographs, shoes, trophies, and even toiletries, the market is frequented by lower-income groups who repurpose what the city throws away. <br> <br> The project explores a central question:
+Can a city's waste be consumed and sustained by the city itself?</p> <br>
+</div>
+    <div class="project-photos">
+    <div class="project-photo"><img src="IMG_9381-2.jpg" alt="..."></div>
+    <div class="project-photo"><img src="IMG_9268-2.jpg" alt="..."></div>
+    <div class="project-photo"><img src="IMG_9283-2.jpg" alt="..."></div>
+  </div>
+</div>
+
+<!-- PROJECT 05 — placeholder -->
+<div class="project-entry">
+  <div class="project-meta">
+    <span class="project-num">05</span>
+    <h2 class="project-title">Bead Jewellery of Rathwas <br>
+    <span class="project page-eyebrow"> Gujarat <space></space>(May - June 2019) </span>  
+  </div>
+  <div class="project-photos">
+    <div class="project-photo"></div>
+    <div class="project-photo"></div>
+    <div class="project-photo"></div>
+  </div>
+  <div class="project-desc">
+    <p>Add your project description here.</p>
+    <span class="project-year">Year</span>
+  </div>
+</div>
+
+<footer>
+  <a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
+  <span>New Delhi, India</span>
+</footer>
+<script>
+  const sticker = document.createElement('img');
+  sticker.src = 'Lostinaloop.png';
+  sticker.style.cssText = `
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 80px; height: 80px; object-fit: contain;
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity 0.3s ease;
+  `;
+  document.body.appendChild(sticker);
+
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+  let visible = false;
+  let hideTimer;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!visible) { sticker.style.opacity = '1'; visible = true; }
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => { sticker.style.opacity = '0'; visible = false; }, 1000);
+  });
+
+  function animate() {
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+    sticker.style.left = currentX + 'px';
+    sticker.style.top = currentY + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body>
+</html>

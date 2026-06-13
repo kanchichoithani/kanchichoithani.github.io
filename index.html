@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lostinaloop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #111111;
+      --mid: #888888;
+      --light: #bbbbbb;
+      --off: #f4f3f0;
+      --white: #fafaf8;
+      --accent: #2a2aff;
+      --border: #e8e7e4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo sup { font-size: 0.55em; vertical-align: super; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--mid);
+      text-decoration: none;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.6; }
+
+    /* ── HERO ── */
+    .hero-upper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .hero-left {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-side-img {
+      width: 100%;
+      height: 280px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      color: transparent;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      background: rgba(0,0,0,0.3);
+      transition: color 0.3s ease;
+      pointer-events: none;
+    }
+    .hero-photo-wrap:hover .hero-photo-caption {
+      color: rgba(255,255,255,0.92);
+    }
+
+    .hero-title-text {
+      font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-right {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .hero-body {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: #333;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    /* unused legacy */
+    .hero-name-row, .hero-desc-row, .hero-photo-row, .hero-side, .hero-main { display: none; }
+
+    /* ── HERO IMAGE ── */
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      min-height: 650px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-caption-text {
+      font-size: 0.82rem;
+      color: transparent;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      transition: color 0.3s ease;
+      background: rgba(0,0,0,0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+    }
+    .hero-image:hover .hero-caption-text { color: rgba(255,255,255,0.92); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.8rem;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      pointer-events: none;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 22s linear infinite;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION BASE ── */
+    .section {
+      padding: 4rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2.5rem;
+    }
+    .section-label {
+      font-size: 0.80rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    .section-meta {
+      font-size: 0.72rem;
+      color: var(--light);
+      font-weight: 400;
+    }
+
+    /* ── PORTFOLIO ── */
+    .port-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .port-item {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .port-thumb {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+      background: var(--off);
+      position: relative;
+    }
+    .port-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: block;
+    }
+    .port-item:hover .port-thumb img { transform: scale(1.05); }
+
+    /* placeholder SVG fills while awaiting real images */
+    .port-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .port-num {
+      font-size: 0.90rem;
+      color: var(--light);
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+      font-family: 'Syne Mono', monospace;
+    }
+    .port-name {
+      font-size: 0.99rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+    .port-count {
+      font-size: 0.68rem;
+      color: var(--light);
+      font-weight: 400;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-left {}
+    .about-index {
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      margin-top: 0.5rem;
+      letter-spacing: -0.04em;
+    }
+    .about-text {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--mid);
+      margin-bottom: 1.4rem;
+      font-weight: 400;
+      max-width: 500px;
+    }
+    .about-handle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 2px;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .about-handle:hover { opacity: 0.5; }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      color: var(--mid);
+      border-radius: 50px;
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ── SHOP ── */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .shop-item {
+      cursor: pointer;
+    }
+    .shop-thumb {
+      position: relative;
+      margin-bottom: 0.8rem;
+    }
+    .shop-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .shop-carousel::-webkit-scrollbar { display: none; }
+    .shop-carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      aspect-ratio: 1;
+      background: var(--off);
+      overflow: hidden;
+    }
+    .shop-carousel-slide img,
+    .shop-carousel-slide video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .shop-arrow {
+      position: absolute;
+      top: calc(50% - 16px);
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.88);
+      border: none; cursor: pointer;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: var(--ink);
+      z-index: 10; opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .shop-thumb:hover .shop-arrow { opacity: 1; pointer-events: auto; }
+    .shop-arrow.prev { left: 0.5rem; }
+    .shop-arrow.next { right: 0.5rem; }
+    .shop-arrow:hover { background: #fff; }
+    .shop-dots {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      padding: 6px 0 2px;
+    }
+    .shop-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border); transition: background 0.2s; flex-shrink: 0;
+    }
+    .shop-dot.active { background: var(--ink); }
+    .shop-name {
+      font-size: 0.90rem;
+      font-weight: 500;
+      color: #888888;
+      margin-bottom: 0.2rem;
+    }
+    .shop-price {
+      font-size: 0.85rem;
+      color: #333;
+      font-weight: 400;
+    }
+    .shop-badge {
+      position: absolute;
+      top: 0.7rem;
+      left: 0.7rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 50px;
+    }
+    .see-all {
+      font-size: 0.75rem;
+      color: var(--mid);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .see-all:hover { color: var(--ink); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(17,17,17,0.72); z-index: 500;
+      align-items: flex-start; justify-content: center;
+      padding: 3rem 2rem; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); width: 100%; max-width: 880px; margin: auto;
+    }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 2rem 2.5rem 1.5rem; border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+    .modal-close {
+      font-size: 1.1rem; background: none; border: none; cursor: pointer;
+      color: var(--mid); padding: 0.3rem 0.6rem; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--ink); }
+    .modal-body { padding: 2rem 2.5rem; }
+    .modal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .modal-card { cursor: default; }
+    .modal-img {
+      aspect-ratio: 4/3; overflow: hidden; margin-bottom: 0.7rem;
+      background: var(--off); display: flex; align-items: center; justify-content: center;
+    }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .modal-card-name { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+    .modal-card-desc { font-size: 0.72rem; color: var(--mid); line-height: 1.55; }
+
+    /* ── CONNECT ── */
+    .connect-section {
+      border-top: 1px solid var(--border);
+      padding: 4.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .connect-text {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      margin-bottom: 2rem;
+    }
+    .connect-detail {
+      font-size: 0.92rem; color: var(--mid); line-height: 1.8; margin-bottom: 1.2rem;
+    }
+    .connect-detail a, .connect-follow a {
+      color: var(--ink); font-weight: 600; text-decoration: none;
+      border-bottom: 1.5px solid var(--ink); padding-bottom: 1px; transition: opacity 0.2s;
+    }
+    .connect-detail a:hover, .connect-follow a:hover { opacity: 0.55; }
+    .connect-follow { font-size: 0.92rem; color: var(--mid); line-height: 1.8; }
+    .connect-btns { display: flex; flex-direction: column; gap: 0.9rem; padding-top: 0.5rem; }
+    .connect-btn {
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+      padding: 1.1rem 2.5rem; background: var(--ink); color: var(--white);
+      border: none; cursor: pointer; border-radius: 50px;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none; text-align: center; display: block;
+    }
+    .connect-btn:hover { background: #333; transform: translateY(-2px); }
+    .connect-btn-outline {
+      font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 600;
+      padding: 1rem 2.5rem; background: transparent; color: var(--ink);
+      border: 1.5px solid var(--ink); cursor: pointer; border-radius: 50px;
+      transition: all 0.2s; text-decoration: none; text-align: center; display: block;
+    }
+    .connect-btn-outline:hover { background: var(--ink); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--light);
+      font-weight: 400;
+    }
+    footer a {
+      color: var(--light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--ink); }
+
+    /* ── FADE IN ON LOAD ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.22s; }
+    .delay-3 { animation-delay: 0.36s; }
+    .delay-4 { animation-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero-upper { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+      .hero-side { display: none; }
+      .section { padding: 3rem 1.5rem; }
+      .port-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .about-index { display: none; }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+      .connect-section { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2.5rem 1.5rem; }
+      .connect-right { align-items: flex-start; }
+      footer { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    }
+
+    @media (max-width: 580px) {
+      .nav-links { display: none; }
+      .port-grid { grid-template-columns: repeat(2, 1fr); }
+      .shop-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">lostinaloop</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Portfolio / Work</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+
+
+  <!-- HERO -->
+  <div class="hero-upper">
+    <div class="hero-left">
+      <div class="hero-photo-wrap">
+        <img src="Kanchi IMG.png" alt="Kanchi Choithani" class="hero-side-img">
+        <span class="hero-photo-caption">Kanchi Choithani</span>
+      </div>
+      <h2 class="hero-title-text">Artist, Curator,<br>Craft Researcher + Designer</h2>
+    </div>
+    <div class="hero-right">
+      <p class="hero-body">Kanchi Choithani is a craft researcher, designer, and visual storyteller from India, currently based out of Delhi. Her practice lies at the intersection of craft documentation, material culture, and community-led design, with a focus on engaging with artisan communities across India. Trained as a designer, her work is informed by long-term field research, collaboration, and an interest in everyday objects as carriers of memory, and lived histories.</p>
+      <p class="hero-body">Kanchi's artistic practice explores how traditional knowledge systems offer alternative ways of understanding identity and sustainability. She works across photography, text, and material research to document practices that are often overlooked within dominant cultural and institutional frameworks. Rather than treating craft as a static tradition, her work foregrounds it as a living, adaptive practice shaped by people, place, and changing socio-economic realities.</p>
+      <p class="hero-body">Through her work, Kanchi seeks to create spaces for quieter stories to be seen, remembered, and valued within contemporary cultural discourse.</p>
+      <a class="about-handle" href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE / VIDEO AREA -->
+  <!-- To use your own video: replace the <canvas> block below with:
+       <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+         <source src="your-video.mp4" type="video/mp4">
+       </video>
+  -->
+  
+  <!-- PORTFOLIO -->
+  <section class="section" id="work">
+    <div class="section-header">
+      <span class="section-label">Portfolio / Work</span>
+  
+    </div>
+    <div class="port-grid">
+
+      <a class="port-item" href="research.html">
+        <div class="port-thumb">
+          <img src="IMG_6087.JPG" alt="Research and Documentation">
+          <div class="port-thumb-placeholder" style="background:#e8e4de;">
+            <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="12" width="24" height="34" rx="1" fill="#aaa" opacity="0.4"/>
+              <rect x="40" y="18" width="30" height="3" rx="1" fill="#aaa" opacity="0.4"/>
+              <rect x="40" y="26" width="22" height="2" rx="1" fill="#aaa" opacity="0.28"/>
+              <rect x="40" y="33" width="26" height="2" rx="1" fill="#aaa" opacity="0.28"/>
+              <rect x="10" y="58" width="60" height="1.5" fill="#aaa" opacity="0.25"/>
+              <rect x="10" y="66" width="60" height="1.5" fill="#aaa" opacity="0.18"/>
+              <rect x="10" y="74" width="40" height="1.5" fill="#aaa" opacity="0.18"/>
+            </svg>
+          </div>
+        </div>
+        <div class="port-num">01</div>
+        <div class="port-name">Research &amp;<br>Documentation</div>
+        <div class="port-count">5 projects</div>
+      </a>
+
+      <a class="port-item" href="product-development.html">
+        <div class="port-thumb">
+          <img src="ms03.JPG" alt="Product Development">
+          <div class="port-thumb-placeholder" style="background:#dde3e8;">
+            <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="14" width="30" height="30" rx="1" fill="#9ab" opacity="0.4"/>
+              <rect x="44" y="14" width="26" height="13" rx="1" fill="#9ab" opacity="0.55"/>
+              <rect x="44" y="31" width="12" height="13" rx="1" fill="#9ab" opacity="0.3"/>
+              <rect x="58" y="31" width="12" height="13" rx="1" fill="#9ab" opacity="0.5"/>
+              <rect x="10" y="62" width="60" height="1.5" fill="#9ab" opacity="0.3"/>
+              <rect x="10" y="70" width="46" height="1.5" fill="#9ab" opacity="0.2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="port-num">02</div>
+        <div class="port-name">Product Development</div>
+        <div class="port-count">4 projects</div>
+      </a>
+
+      <a class="port-item" href="graphics.html">
+        <div class="port-thumb">
+          <img src="Indie Folk Shadows-03.png" alt="Graphics">
+          <div class="port-thumb-placeholder" style="background:#ede8e2;">
+            <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="36" r="20" fill="#c4a882" opacity="0.35"/>
+              <circle cx="52" cy="36" r="20" fill="#c4a882" opacity="0.35"/>
+              <ellipse cx="40" cy="36" rx="9" ry="17" fill="#c4a882" opacity="0.4"/>
+              <rect x="10" y="68" width="60" height="1.5" fill="#c4a882" opacity="0.3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="port-num">03</div>
+        <div class="port-name">Graphics</div>
+        <div class="port-count">6 projects</div>
+      </a>
+
+      <a class="port-item" href="material-explorations.html">
+        <div class="port-thumb">
+          <img src="FrontPage_Material.png" alt="Material Explorations">
+          <div class="port-thumb-placeholder" style="background:#e4e2dd;">
+            <svg width="80" height="100" viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="12" width="13" height="13" fill="#aaa" opacity="0.35" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="25" y="12" width="13" height="13" fill="#bba" opacity="0.35" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="40" y="12" width="13" height="13" fill="#aba" opacity="0.3" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="55" y="12" width="14" height="13" fill="#aab" opacity="0.35" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="10" y="28" width="13" height="13" fill="#ba9" opacity="0.3" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="25" y="28" width="13" height="13" fill="#aaa" opacity="0.28" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="40" y="28" width="13" height="13" fill="#bba" opacity="0.35" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="55" y="28" width="14" height="13" fill="#aba" opacity="0.3" stroke="#aaa" stroke-width="0.5"/>
+              <rect x="10" y="68" width="60" height="1.5" fill="#aaa" opacity="0.22"/>
+              <rect x="10" y="76" width="42" height="1.5" fill="#aaa" opacity="0.16"/>
+            </svg>
+          </div>
+        </div>
+        <div class="port-num">04</div>
+        <div class="port-name">Material<br>Explorations</div>
+        <div class="port-count">5 projects</div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="hero-image fade-up delay-4">
+    <video autoplay muted loop playsinline style="width:100%;height:100%;min-height:650px;object-fit:cover;display:block;">
+      <source src="Without Captions Brokpas.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:1.5rem 2rem;pointer-events:none;">
+      <span class="hero-caption-text">Phurpa Chojom with her beloved yaks, Arunachal Pradesh 2024</span>
+    </div>
+  </div>
+
+  <!-- SHOP -->
+  <section class="section" id="shop">
+    <div class="section-header">
+      <span class="section-label">Shop</span>
+      <a class="see-all" href="shop.html">View all →</a>
+    </div>
+    <div class="shop-grid">
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide"><img src="So-Far-Gone-Ani.gif" alt="So Far Gone Zine"></div>
+            <div class="shop-carousel-slide"><img src="WhatsApp Image 2026-06-11 at 16.06.18.jpeg" alt= "So Far Gone Zine"></div>
+            
+          </div>
+          <div class="shop-dots"></div>
+          <span class="shop-badge">New</span>
+        </div>
+        <div class="shop-name">So Far Gone / Zine (59 pages)</div>
+        <div class="shop-price">₹2,700 · Print on Butter Paper</div>
+      </div>
+<!--
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#e0ddd8;"></div>
+            <div class="shop-carousel-slide" style="background:#e0ddd8;"></div>
+            <div class="shop-carousel-slide" style="background:#e0ddd8;"></div>
+          </div>
+          <div class="shop-dots"></div>
+        </div>
+        <div class="shop-name">Research zine vol. 1</div>
+        <div class="shop-price">₹650 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#e0dbd4;"></div>
+            <div class="shop-carousel-slide" style="background:#e0dbd4;"></div>
+            <div class="shop-carousel-slide" style="background:#e0dbd4;"></div>
+          </div>
+          <div class="shop-dots"></div>
+          <span class="shop-badge">Last 2</span>
+        </div>
+        <div class="shop-name">Ceramic piece 03</div>
+        <div class="shop-price">₹3,400 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#dde4de;"></div>
+            <div class="shop-carousel-slide" style="background:#dde4de;"></div>
+            <div class="shop-carousel-slide" style="background:#dde4de;"></div>
+          </div>
+          <div class="shop-dots"></div>
+        </div>
+        <div class="shop-name">Textile swatch set</div>
+        <div class="shop-price">₹2,200 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#e8e0d8;"></div>
+            <div class="shop-carousel-slide" style="background:#e8e0d8;"></div>
+            <div class="shop-carousel-slide" style="background:#e8e0d8;"></div>
+          </div>
+          <div class="shop-dots"></div>
+          <span class="shop-badge">New</span>
+        </div>
+        <div class="shop-name">Field notes print</div>
+        <div class="shop-price">₹1,200 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#dbd8d0;"></div>
+            <div class="shop-carousel-slide" style="background:#dbd8d0;"></div>
+            <div class="shop-carousel-slide" style="background:#dbd8d0;"></div>
+          </div>
+          <div class="shop-dots"></div>
+        </div>
+        <div class="shop-name">Craft documentation zine</div>
+        <div class="shop-price">₹800 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#e4ddd8;"></div>
+            <div class="shop-carousel-slide" style="background:#e4ddd8;"></div>
+            <div class="shop-carousel-slide" style="background:#e4ddd8;"></div>
+          </div>
+          <div class="shop-dots"></div>
+        </div>
+        <div class="shop-name">Handmade vessel 01</div>
+        <div class="shop-price">₹4,500 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#dce0e4;"></div>
+            <div class="shop-carousel-slide" style="background:#dce0e4;"></div>
+            <div class="shop-carousel-slide" style="background:#dce0e4;"></div>
+          </div>
+          <div class="shop-dots"></div>
+          <span class="shop-badge">Last 1</span>
+        </div>
+        <div class="shop-name">Archival print 02</div>
+        <div class="shop-price">₹2,000 · DM to order</div>
+      </div>
+
+      <div class="shop-item" onclick="window.open('https://ig.me/m/lostinaloop','_blank')">
+        <div class="shop-thumb">
+          <div class="shop-carousel" data-carousel>
+            <div class="shop-carousel-slide" style="background:#e0dce0;"></div>
+            <div class="shop-carousel-slide" style="background:#e0dce0;"></div>
+            <div class="shop-carousel-slide" style="background:#e0dce0;"></div>
+          </div>
+          <div class="shop-dots"></div>
+        </div>
+        <div class="shop-name">Material sample book</div>
+        <div class="shop-price">₹3,000 · DM to order</div> -->
+      </div>
+
+    </div>
+  </section> 
+
+  <!-- CONNECT -->
+  <div class="connect-section" id="connect">
+    <div>
+      <div class="connect-text">Want to work<br>together?</div>
+      <p class="connect-detail">Write to us at<br><a href="mailto:kanchichoithani22@gmail.com">kanchichoithani22@gmail.com</a></p>
+      <p class="connect-follow">Or follow along on<br><a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a></p>
+    </div>
+    <div class="connect-btns">
+      
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
+    <span>New Delhi, India</span>
+  </footer>
+
+  <script>
+    // ── SHOP CAROUSELS ──
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+      const thumb = carousel.closest('.shop-thumb');
+      const slides = carousel.querySelectorAll('.shop-carousel-slide');
+      const dotsContainer = thumb.querySelector('.shop-dots');
+      const total = slides.length;
+
+      // build dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'shop-dot' + (i === 0 ? ' active' : '');
+        dotsContainer.appendChild(dot);
+      });
+      const dots = dotsContainer.querySelectorAll('.shop-dot');
+
+      // inject arrows
+      const prev = document.createElement('button');
+      prev.className = 'shop-arrow prev';
+      prev.innerHTML = '&#8249;';
+      prev.setAttribute('aria-label', 'Previous');
+
+      const next = document.createElement('button');
+      next.className = 'shop-arrow next';
+      next.innerHTML = '&#8250;';
+      next.setAttribute('aria-label', 'Next');
+
+      thumb.appendChild(prev);
+      thumb.appendChild(next);
+
+      function goTo(index) {
+        carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+      }
+
+      function currentIndex() {
+        return Math.round(carousel.scrollLeft / carousel.offsetWidth);
+      }
+
+      prev.addEventListener('click', e => {
+        e.stopPropagation();
+        goTo(Math.max(0, currentIndex() - 1));
+      });
+      next.addEventListener('click', e => {
+        e.stopPropagation();
+        goTo(Math.min(total - 1, currentIndex() + 1));
+      });
+
+      carousel.addEventListener('scroll', () => {
+        const i = currentIndex();
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }, { passive: true });
+    });
+
+    // ── SCROLL FADE-IN ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.port-item, .shop-item, .about-grid').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+  <!-- MODALS -->
+  <div class="modal-overlay" id="modal-research">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Research &amp; Documentation</span>
+        <button class="modal-close" onclick="closeModal('research')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-card"><div class="modal-img" style="background:#e8e4de;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="8" y="8" width="64" height="44" rx="1" fill="#aaa" opacity="0.15"/><rect x="14" y="16" width="30" height="3" rx="1" fill="#aaa" opacity="0.35"/><rect x="14" y="24" width="50" height="2" rx="1" fill="#aaa" opacity="0.22"/></svg></div><div class="modal-card-name">Brokpa Field Study, Arunachal Pradesh</div><div class="modal-card-desc">Field documentation of pastoral communities and yak-herding traditions. 2024.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4e0d8;"><svg width="80" height="60" viewBox="0 0 80 60"><circle cx="40" cy="30" r="18" fill="none" stroke="#aaa" stroke-width="1" opacity="0.4"/></svg></div><div class="modal-card-name">Weave Archive, Kutch</div><div class="modal-card-desc">Visual documentation of weavers and loom traditions in rural Gujarat. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#dde4e0;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="10" width="20" height="40" rx="1" fill="#9ab" opacity="0.3"/><rect x="34" y="18" width="36" height="3" rx="1" fill="#9ab" opacity="0.35"/></svg></div><div class="modal-card-name">Oral Histories — Varanasi Silk</div><div class="modal-card-desc">Recorded interviews and textile mapping with Banarasi silk weavers. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e8e4de;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="8" y="14" width="64" height="32" rx="1" fill="#aaa" opacity="0.12"/><rect x="14" y="20" width="50" height="2" rx="1" fill="#aaa" opacity="0.28"/></svg></div><div class="modal-card-name">Data Visualisation — Craft Census</div><div class="modal-card-desc">Mapping craft practices across Indian states using census data. 2022.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e0dbd4;"><svg width="80" height="60" viewBox="0 0 80 60"><ellipse cx="40" cy="30" rx="28" ry="18" fill="none" stroke="#c4a882" stroke-width="1" opacity="0.4"/></svg></div><div class="modal-card-name">Placeholder Project 05</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-product">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Product Development</span>
+        <button class="modal-close" onclick="closeModal('product')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-card"><div class="modal-img" style="background:#dde3e8;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="10" width="26" height="40" rx="1" fill="#9ab" opacity="0.3"/><rect x="44" y="10" width="26" height="18" rx="1" fill="#9ab" opacity="0.4"/></svg></div><div class="modal-card-name">Artisan Collective — Home Goods</div><div class="modal-card-desc">Co-designed a range of home textiles with weavers from Rajasthan. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4e8e0;"><svg width="80" height="60" viewBox="0 0 80 60"><circle cx="30" cy="30" r="16" fill="none" stroke="#a0b090" stroke-width="1" opacity="0.5"/><circle cx="50" cy="30" r="16" fill="none" stroke="#a0b090" stroke-width="1" opacity="0.5"/></svg></div><div class="modal-card-name">Natural Dye Product Line</div><div class="modal-card-desc">Sustainable accessory range using traditional natural dye processes. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#dde4e8;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="20" y="8" width="40" height="44" rx="2" fill="#9ab" opacity="0.2"/></svg></div><div class="modal-card-name">Placeholder Project 03</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e0dde8;"><svg width="80" height="60" viewBox="0 0 80 60"><ellipse cx="40" cy="30" rx="26" ry="18" fill="#b0a0c0" opacity="0.18"/></svg></div><div class="modal-card-name">Placeholder Project 04</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-graphics">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Graphics</span>
+        <button class="modal-close" onclick="closeModal('graphics')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-card"><div class="modal-img" style="background:#ede8e2;"><svg width="80" height="60" viewBox="0 0 80 60"><circle cx="26" cy="30" r="18" fill="#c4a882" opacity="0.3"/><circle cx="54" cy="30" r="18" fill="#c4a882" opacity="0.3"/></svg></div><div class="modal-card-name">Indie Folk Shadows — Poster Series</div><div class="modal-card-desc">Illustrative posters exploring folk music heritage. 2024.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e8e4dc;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="8" y="8" width="64" height="44" rx="1" fill="none" stroke="#c4a882" stroke-width="1" opacity="0.4"/></svg></div><div class="modal-card-name">Publication Design</div><div class="modal-card-desc">Layout and visual identity for a craft documentation publication. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4e0d8;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="10" width="14" height="40" rx="1" fill="#c4a882" opacity="0.3"/><rect x="28" y="20" width="14" height="30" rx="1" fill="#c4a882" opacity="0.25"/><rect x="46" y="14" width="14" height="36" rx="1" fill="#c4a882" opacity="0.35"/></svg></div><div class="modal-card-name">Data Visualisation — Craft Economy</div><div class="modal-card-desc">Infographic series on traditional craft sectors. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#ece8e0;"><svg width="80" height="60" viewBox="0 0 80 60"><circle cx="40" cy="30" r="22" fill="none" stroke="#c4a882" stroke-width="0.8" opacity="0.4"/></svg></div><div class="modal-card-name">Placeholder Project 04</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e8e4de;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="8" y="8" width="28" height="44" rx="1" fill="#c4a882" opacity="0.2"/><rect x="44" y="8" width="28" height="44" rx="1" fill="#c4a882" opacity="0.3"/></svg></div><div class="modal-card-name">Placeholder Project 05</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4e8e0;"><svg width="80" height="60" viewBox="0 0 80 60"><ellipse cx="40" cy="30" rx="30" ry="18" fill="none" stroke="#a0b090" stroke-width="1" opacity="0.4"/></svg></div><div class="modal-card-name">Placeholder Project 06</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-material">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Material Explorations</span>
+        <button class="modal-close" onclick="closeModal('material')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-card"><div class="modal-img" style="background:#e4e2dd;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="8" y="8" width="14" height="14" fill="#aaa" opacity="0.3" stroke="#aaa" stroke-width="0.5"/><rect x="25" y="8" width="14" height="14" fill="#bba" opacity="0.3" stroke="#aaa" stroke-width="0.5"/><rect x="42" y="8" width="14" height="14" fill="#aba" opacity="0.28" stroke="#aaa" stroke-width="0.5"/></svg></div><div class="modal-card-name">Natural Dye Study</div><div class="modal-card-desc">Plant-based dyes on handspun cotton and silk. 2024.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#dde0da;"><svg width="80" height="60" viewBox="0 0 80 60"><ellipse cx="40" cy="30" rx="28" ry="18" fill="#b0c0a0" opacity="0.2"/></svg></div><div class="modal-card-name">Bamboo &amp; Cane Structures</div><div class="modal-card-desc">Structural experiments using Northeast Indian basketry materials. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4dcd8;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="20" y="10" width="40" height="40" rx="20" fill="#c4a882" opacity="0.2"/></svg></div><div class="modal-card-name">Clay Body Research</div><div class="modal-card-desc">Regional clay bodies and firing techniques across pottery traditions. 2023.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e0dce4;"><svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="10" width="60" height="40" rx="1" fill="none" stroke="#b0a0c0" stroke-width="0.8" opacity="0.4"/><line x1="10" y1="23" x2="70" y2="23" stroke="#b0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="10" y1="37" x2="70" y2="37" stroke="#b0a0c0" stroke-width="0.5" opacity="0.3"/></svg></div><div class="modal-card-name">Warp &amp; Weft Studies</div><div class="modal-card-desc">Weave structures exploring traditional patterns in contemporary form. 2022.</div></div>
+          <div class="modal-card"><div class="modal-img" style="background:#e4e0d8;"><svg width="80" height="60" viewBox="0 0 80 60"><circle cx="20" cy="20" r="10" fill="#c4a882" opacity="0.25"/><circle cx="40" cy="35" r="14" fill="#c4a882" opacity="0.18"/></svg></div><div class="modal-card-name">Placeholder Project 05</div><div class="modal-card-desc">Add your project title and description here.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  const sticker = document.createElement('img');
+  sticker.src = 'lostinaloop.png';
+  sticker.style.cssText = `
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 80px; height: 80px; object-fit: contain;
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity 0.3s ease;
+  `;
+  document.body.appendChild(sticker);
+
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+  let visible = false;
+  let hideTimer;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!visible) { sticker.style.opacity = '1'; visible = true; }
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => { sticker.style.opacity = '0'; visible = false; }, 1000);
+  });
+
+  function animate() {
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+    sticker.style.left = currentX + 'px';
+    sticker.style.top = currentY + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body></html>
