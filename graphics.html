@@ -113,17 +113,17 @@
 <body>
 
 <nav>
-  <a href="lostinaloop.html" class="logo">lostinaloop</a>
+  <a href="index.html" class="logo">lostinaloop</a>
   <ul class="nav-links">
-    <li><a href="lostinaloop.html#about">About</a></li>
-    <li><a href="lostinaloop.html#work">Portfolio / Work</a></li>
-    <li><a href="lostinaloop.html#shop">Shop</a></li>
-    <li><a href="lostinaloop.html#connect">Connect</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Portfolio / Work</a></li>
+    <li><a href="index.html#shop">Shop</a></li>
+    <li><a href="index.html#connect">Connect</a></li>
   </ul>
 </nav>
 
 <div class="page-header">
-  <a class="back-link" href="lostinaloop.html#work">← Back to work</a>
+  <a class="back-link" href="index.html#work">← Back to work</a>
   <span class="page-eyebrow">Portfolio / Work — 03</span>
   <h1 class="page-title">Graphics</h1>
 </div>
@@ -220,38 +220,5 @@
   <a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
   <span>New Delhi, India</span>
 </footer>
-<script>
-  const sticker = document.createElement('img');
-  sticker.src = 'Lostinaloop.png';
-  sticker.style.cssText = `
-    position: fixed; pointer-events: none; z-index: 9999;
-    width: 80px; height: 80px; object-fit: contain;
-    transform: translate(-50%, -50%);
-    opacity: 0; transition: opacity 0.3s ease;
-  `;
-  document.body.appendChild(sticker);
-
-  let mouseX = 0, mouseY = 0;
-  let currentX = 0, currentY = 0;
-  let visible = false;
-  let hideTimer;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (!visible) { sticker.style.opacity = '1'; visible = true; }
-    clearTimeout(hideTimer);
-    hideTimer = setTimeout(() => { sticker.style.opacity = '0'; visible = false; }, 1000);
-  });
-
-  function animate() {
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-    sticker.style.left = currentX + 'px';
-    sticker.style.top = currentY + 'px';
-    requestAnimationFrame(animate);
-  }
-  animate();
-</script>
 </body>
 </html>

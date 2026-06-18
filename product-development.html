@@ -129,17 +129,17 @@
 <body>
 
 <nav>
-  <a href="lostinaloop.html" class="logo">lostinaloop</a>
+  <a href="index.html" class="logo">lostinaloop</a>
   <ul class="nav-links">
-    <li><a href="lostinaloop.html#about">About</a></li>
-    <li><a href="lostinaloop.html#work">Portfolio / Work</a></li>
-    <li><a href="lostinaloop.html#shop">Shop</a></li>
-    <li><a href="lostinaloop.html#connect">Connect</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Portfolio / Work</a></li>
+    <li><a href="index.html#shop">Shop</a></li>
+    <li><a href="index.html#connect">Connect</a></li>
   </ul>
 </nav>
 
 <div class="page-header">
-  <a class="back-link" href="lostinaloop.html#work">← Back to work</a>
+  <a class="back-link" href="index.html#work">← Back to work</a>
   <span class="page-eyebrow">Portfolio / Work — 02</span>
   <h1 class="page-title">Product Development</h1>
 </div>
@@ -150,14 +150,14 @@
     <span class="project-num">01</span>
     <h2 class="project-title">Copper Enamelling</h2>
     <div class="project-desc">
-      <p></p>Designed and developed copper enamel wallplates and tealights for Ekibeki, as a part of their home decor collection.</p>
+      <p></p>Designed and developed copper enamel wallplates and tealights for Ekibeki <a href="https://instagram.com/Ekibeki_india" target="_blank">@ekibeki_india</a>, as a part of their home decor collection.</p>
     </div>
     <span class="project-year">2021 - 2022</span>
   </div>
   <div class="project-photos">
-    <div class="project-photo"><img src="Wallplates-09.png" alt="Copper Enamelling"></div>
-    <div class="project-photo"><img src="Wallplate.png" alt="Copper Enamelling"></div>
-    <div class="project-photo"><img src="Wallplates-12.png" alt="Copper Enamelling"></div>
+    <div class="project-photo"><img src="CEPL015B.JPG" alt="Copper Enamelling"></div>
+    <div class="project-photo"><img src="CEPL016C.JPG" alt="Copper Enamelling"></div>
+    <div class="project-photo"><img src="CETL001-2-3-4-5 E.JPG" alt="Copper Enamelling"></div>
   </div>
 </div>
 
@@ -201,7 +201,7 @@ This project explores the idea of a playful sound-making object that is free fro
     <span class="project-year">2019</span>
   </div>
   <div class="project-photos">
-    <div class="project-photo"><img src="Alpviram-10.png" alt="Project 03"></div>
+    <div class="project-photo"><img src="Alpviram-5.jpg" alt="Project 03"></div>
     <div class="project-photo"><img src="Alpviram-13.png" alt="Project 03"></div>
     
   </div>
@@ -229,38 +229,5 @@ This project explores the idea of a playful sound-making object that is free fro
   <a href="https://instagram.com/lostinaloop" target="_blank">@lostinaloop</a>
   <span>New Delhi, India</span>
 </footer>
-<script>
-  const sticker = document.createElement('img');
-  sticker.src = 'Lostinaloop.png';
-  sticker.style.cssText = `
-    position: fixed; pointer-events: none; z-index: 9999;
-    width: 80px; height: 80px; object-fit: contain;
-    transform: translate(-50%, -50%);
-    opacity: 0; transition: opacity 0.3s ease;
-  `;
-  document.body.appendChild(sticker);
-
-  let mouseX = 0, mouseY = 0;
-  let currentX = 0, currentY = 0;
-  let visible = false;
-  let hideTimer;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (!visible) { sticker.style.opacity = '1'; visible = true; }
-    clearTimeout(hideTimer);
-    hideTimer = setTimeout(() => { sticker.style.opacity = '0'; visible = false; }, 1000);
-  });
-
-  function animate() {
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-    sticker.style.left = currentX + 'px';
-    sticker.style.top = currentY + 'px';
-    requestAnimationFrame(animate);
-  }
-  animate();
-</script>
 </body>
 </html>
